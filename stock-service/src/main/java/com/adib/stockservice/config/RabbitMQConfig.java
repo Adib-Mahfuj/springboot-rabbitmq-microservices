@@ -1,4 +1,4 @@
-package com.adib.orderservice.config;
+package com.adib.stockservice.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -11,36 +11,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfig {
-
-    @Value("${rabbitmq.order.queue.name}")
-    private String orderQueue;
-
-    @Bean
-    public Queue queue()
-    {
-        return new Queue(orderQueue,true);
-    }
-
-    @Value("${rabbitmq.exchange.name}")
-    private String exchange;
-
-    @Bean
-    public TopicExchange exchange()
-    {
-        return new TopicExchange(exchange);
-    }
-
-    @Value("${rabbitmq.binding.routing.key}")
-    private String orderRoutingKey;
-
-    @Bean
-    public Binding binding()
-    {
-        return BindingBuilder
-                .bind(queue())
-                .to(exchange())
-                .with(orderRoutingKey);
-    }
 
     @Bean
     public MessageConverter converter()
