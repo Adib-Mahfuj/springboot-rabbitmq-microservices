@@ -55,4 +55,28 @@ public class RabbitMQConfig {
         rabbitTemplate.setMessageConverter(converter());
         return rabbitTemplate;
     }
+
+    //For Email Service
+
+    @Value("${rabbitmq.email.queue.name}")
+    private String emailQueue;
+
+    @Bean
+    public Queue emailQueue() {
+        return new Queue(emailQueue);
+    }
+
+    @Value("${rabbitmq.binding.email.routing.key}")
+    private String emailRoutingKey;
+
+    @Bean
+    public Binding emailBinding() {
+        return BindingBuilder
+                .bind(emailQueue())
+                .to(exchange())
+                .with(emailRoutingKey);
+    }
+
+
+
 }
