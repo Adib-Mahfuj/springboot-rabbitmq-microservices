@@ -17,7 +17,7 @@ public class OrderProducer {
     @Value("${rabbitmq.binding.routing.key}")
     private String orderRoutingKey;
 
-    @Value("{rabbitmq.binding.email.routing.key}")
+    @Value("${rabbitmq.binding.email.routing.key}")
     private String emailRoutingKey;
 
     private final RabbitTemplate rabbitTemplate;
