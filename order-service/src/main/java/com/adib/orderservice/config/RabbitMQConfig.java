@@ -42,20 +42,6 @@ public class RabbitMQConfig {
                 .with(orderRoutingKey);
     }
 
-    @Bean
-    public MessageConverter converter()
-    {
-        return new Jackson2JsonMessageConverter();
-    }
-
-    @Bean
-    public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory)
-    {
-        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(converter());
-        return rabbitTemplate;
-    }
-
     //For Email Service
 
     @Value("${rabbitmq.email.queue.name}")
@@ -78,5 +64,18 @@ public class RabbitMQConfig {
     }
 
 
+    @Bean
+    public MessageConverter converter()
+    {
+        return new Jackson2JsonMessageConverter();
+    }
+
+    @Bean
+    public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory)
+    {
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setMessageConverter(converter());
+        return rabbitTemplate;
+    }
 
 }
